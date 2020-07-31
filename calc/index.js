@@ -1,79 +1,70 @@
-let runningTotal = 0;
-let buffer = "0";
-let previousOperator = null;
-const screen = document.querySelector(".screen");
-
-document.querySelector(".calc-buttons").addEventListener("click", function (e) {
-	buttonClick(e.target.innerText);
-});
-
-function buttonClick(value) {
-	if (isNaN(+value)) {
-		handleSymbol(value);
-	} else {
-		handleNumber(value);
-	}
-	rerender();
+*{
+  box-sizing: border-box;
 }
 
-function handleNumber(value) {
-	if (buffer === "0") {
-		buffer = value;
-	} else {
-		buffer += value;
-	}
+body {
+  padding:0;
+  margin:0;
 }
 
-function handleSymbol(value) {
-	switch (value) {
-		case "Ⅽ":
-			runningTotal = 0;
-			buffer = "0";
-			previousOperator = null;
-			break;
-		case "=":
-			if (previousOperator === null) return;
-			flushOperation(+buffer);
-			previousOperator = null;
-			buffer = "" + runningTotal;
-			runningTotal = 0;
-			break;
-		case "←":
-			if (buffer.length === 1) {
-				buffer = "0";
-			} else {
-				buffer = buffer.substring(0, buffer.length - 1);
-			}
-			break;
-		default:
-			handleMath(value);
-			break;
-	}
+.calc {
+  width: 400px;
+  background-color: black;
+  color:white;
 }
 
-function handleMath(value) {
-  const intBuffer = parseInt(buffer);
-  if(runningTotal === 0) {
-    runningTotal = intBuffer;
-  } else {
-    flushOperation(intBuffer);
-  }
-  previousOperator = value;
-  buffer = "0";
+.screen{
+  font-size:40px;
+  font-family: 'Courier New', Courier, monospace;
+  text-align: right;
+  padding: 20px 5px;
 }
 
-function flushOperation(intBuffer){
-  if(previousOperator === "+") {
-    runningTotal += intBuffer;
-  } else if (previousOperator === "˗") {
-    runningTotal -= intBuffer;
-  } else if (previousOperator === "✕") {
-    runningTotal *= intBuffer;
-  } else {
-    runningTotal /= intBuffer;
-  }
+.calc-button{
+  background-color:#d8d9db;
+  color: black;
+  height: 100px;
+  width: 24.5%;
+  border: none;
+  border-radius: 0;
+  font-size: 40px;
+  cursor: pointer;
 }
 
-function rerender() {
-	screen.innerText = buffer;
+.calc-button:hover{
+  background-color: #ebebeb;
+}
+
+.calc-button:active{
+  background-color: #9b9b9b;
+  color:white;
+}
+
+.calc-button:last-child{
+  background-color: #df974c;
+  color:white;
+}
+
+.calc-button:last-child:hover{
+  background-color: #dba264;
+}
+
+.calc-button:last-child:active{
+  background-color: #e49036;
+  color:black;
+}
+
+.double{
+  width:49.7%;
+}
+
+.triple{
+  width:74.8%
+}
+
+.calc-row{
+  display: flex;
+  align-content: stretch;
+  justify-content: space-between;
+  margin-bottom: 0.5%;
 }
