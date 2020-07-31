@@ -3,76 +3,44 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="./main.css" />
 		<title>Calculator</title>
+		<link rel="stylesheet" href="./calculator.css" />
 	</head>
 	<body>
-		<div class="calculator button-clicked">
-			<div class="row display-screen">
-				<div class="display-numbers"></div>
-			</div>
-			<div class="row">
-				<button class="button half" value="clear">
-					C
-				</button>
-				<button class="button quarter" value="delete">
-					Delete
-				</button>
-				<button class="button quarter" value="divide">
-					Divide
-				</button>
-			</div>
-			<div class="row">
-				<button class="button quarter" value="7">
-					7
-				</button>
-				<button class="button quarter" value="8">
-					8
-				</button>
-				<button class="button quarter" value="9">
-					9
-				</button>
-				<button class="button quarter" value="multiply">
-					X
-				</button>
-			</div>
-			<div class="row">
-				<button class="button quarter" value="4">
-					4
-				</button>
-				<button class="button quarter" value="5">
-					5
-				</button>
-				<button class="button quarter" value="6">
-					6
-				</button>
-				<button class="button quarter" value="subtract">
-					-
-				</button>
-			</div>
-			<div class="row">
-				<button class="button quarter" value="1">
-					1
-				</button>
-				<button class="button quarter" value="2">
-					2
-				</button>
-				<button class="button quarter" value="3">
-					3
-				</button>
-				<button class="button quarter" value="add">
-					+
-				</button>
-			</div>
-			<div class="row">
-				<button class="button three-fourths" value="0">
-					0
-				</button>
-				<button class="button quarter" value="equals">
-					=
-				</button>
-			</div>
+		<div class="calc">
+			<section class="screen">
+				0
+			</section>
+			<section class="calc-buttons">
+				<div class="calc-row">
+					<button class="double calc-button">Ⅽ</button>
+					<button class="calc-button">←</button>
+					<button class="calc-button">÷</button>
+				</div>
+				<div class="calc-row">
+					<button class="calc-button">7</button>
+					<button class="calc-button">8</button>
+					<button class="calc-button">9</button>
+					<button class="calc-button">✕</button>
+				</div>
+				<div class="calc-row">
+					<button class="calc-button">4</button>
+					<button class="calc-button">5</button>
+					<button class="calc-button">6</button>
+					<button class="calc-button">˗</button>
+				</div>
+				<div class="calc-row">
+					<button class="calc-button">1</button>
+					<button class="calc-button">2</button>
+					<button class="calc-button">3</button>
+					<button class="calc-button">+</button>
+				</div>
+				<div class="calc-row">
+					<button class="triple calc-button">0</button>
+					<button class="calc-button">=</button>
+				</div>
+			</section>
 		</div>
-		<script src="index.js" />
+		<script src="./calculator.js"></script>
 	</body>
 </html>
