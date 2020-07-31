@@ -1,57 +1,79 @@
-//let arr = [];
-let val = "";
-let result = 0;
-let operand;
-document.querySelector(".button-clicked").addEventListener("mousedown", e => {
-	if (e.target.value === "clear") {
-		val = "";
-		result = 0;
-		operand = null;
-		document.querySelector(".display-numbers").innerText = "";
-	} else if (e.target.value === "delete") {
-		val = val.substring(0, val.length - 1);
-		document.querySelector(".display-numbers").innerText = val;
-	} else if (e.target.value === "divide") {
-		result = result === 0 ? +val : (result /= val);
-		val = "";
-		operand = "divide";
-		document.querySelector(".display-numbers").innerText = "";
-	} else if (e.target.value === "multiply") {
-		result = result === 0 ? +val : (result *= val);
-		val = "";
-		operand = "multiply";
-		document.querySelector(".display-numbers").innerText = "";
-	} else if (e.target.value === "subtract") {
-		result += +val;
-		val = "";
-		operand = "subtract";
-	} else if (e.target.value === "add") {
-		result += +val;
-		val = "";
-		operand = "add";
-	} else if (e.target.value === "equals") {
-		let sum;
-		switch (operand) {
-			case "add":
-				sum = result += +val;
-				break;
-			case "subtract":
-				sum = result -= +val;
-				console.log(result, +val);
-				break;
-			case "multiply":
-				sum = result *= +val;
-				break;
-			case "divide":
-				console.log(result);
-				sum = result / +val;
+let runningTotal = 0;
+let buffer = "0";
+let previousOperator = null;
+const screen = document.querySelector(".screen");
 
-				break;
-		}
-		document.querySelector(".display-numbers").innerText = sum;
-	} else {
-		val += e.target.value;
-		document.querySelector(".display-numbers").innerText = val;
-	}
-	e.stopPropagation();
+document.querySelector(".calc-buttons").addEventListener("click", function (e) {
+	buttonClick(e.target.innerText);
 });
+
+function buttonClick(value) {
+	if (isNaN(+value)) {
+		handleSymbol(value);
+	} else {
+		handleNumber(value);
+	}
+	rerender();
+}
+
+function handleNumber(value) {
+	if (buffer === "0") {
+		buffer = value;
+	} else {
+		buffer += value;
+	}
+}
+
+function handleSymbol(value) {
+	switch (value) {
+		case "Ⅽ":
+			runningTotal = 0;
+			buffer = "0";
+			previousOperator = null;
+			break;
+		case "=":
+			if (previousOperator === null) return;
+			flushOperation(+buffer);
+			previousOperator = null;
+			buffer = "" + runningTotal;
+			runningTotal = 0;
+			break;
+		case "←":
+			if (buffer.length === 1) {
+				buffer = "0";
+			} else {
+				buffer = buffer.substring(0, buffer.length - 1);
+			}
+			break;
+		default:
+			handleMath(value);
+			break;
+	}
+}
+
+function handleMath(value) {
+  const intBuffer = parseInt(buffer);
+  if(runningTotal === 0) {
+    runningTotal = intBuffer;
+  } else {
+    flushOperation(intBuffer);
+  }
+  previousOperator = value;
+  buffer = "0";
+}
+
+function flushOperation(intBuffer){
+  if(previousOperator === "+") {
+    runningTotal += intBuffer;
+  } else if (previousOperator === "˗") {
+    runningTotal -= intBuffer;
+  } else if (previousOperator === "✕") {
+    runningTotal *= intBuffer;
+  } else {
+    runningTotal /= intBuffer;
+  }
+}
+
+function rerender() {
+	screen.innerText = buffer;
+}
